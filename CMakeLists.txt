@@ -29,7 +29,7 @@ add_compile_options(
     -Wl,--relax,--gc-sections
 )
 
-add_executable(arduino_uno_thermometer main.c)
+add_executable(arduino_uno_thermometer main.c i2c.c)
 
 set_target_properties(arduino_uno_thermometer PROPERTIES OUTPUT_NAME arduino_uno_thermometer.o)
 
