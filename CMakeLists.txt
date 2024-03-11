@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.11)
 
-project("arduino_uno_thermometer")
+project("atmega328p_thermometer")
 
 set(F_CPU 16000000ul)
 set(MCU atmega328p)
@@ -30,8 +30,8 @@ add_compile_options(
     -Wl,--relax,--gc-sections
 )
 
-add_executable(arduino_uno_thermometer main.c i2c.c)
+add_executable(atmega328p_thermometer main.c i2c.c)
 
-set_target_properties(arduino_uno_thermometer PROPERTIES OUTPUT_NAME arduino_uno_thermometer.o)
+set_target_properties(atmega328p_thermometer PROPERTIES OUTPUT_NAME atmega328p_thermometer.o)
 
-add_custom_target(upload avrdude -c ${PROG_TYPE} -p ${MCU} -U flash:w:arduino_uno_thermometer.o -P ${PROG_PORT})
+add_custom_target(upload avrdude -c ${PROG_TYPE} -p ${MCU} -U flash:w:atmega328p_thermometer.o -P ${PROG_PORT})
