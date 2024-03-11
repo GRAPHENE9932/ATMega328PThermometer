@@ -71,7 +71,8 @@ void hd44780_clear(char i2c_address) {
     _delay_us(1521.0);
 }
 
-void hd44780_new_line(char i2c_address) {
-    send_nibble(0b1010, 0, i2c_address);
-    send_nibble(0b1000, 0, i2c_address);
+void hd44780_jump(char i2c_address, unsigned char x, unsigned char y) {
+    unsigned char address = x + y * 40;
+    send_nibble((address >> 4) | 0b1000, 0, i2c_address);
+    send_nibble(address, 0, i2c_address);
 }
