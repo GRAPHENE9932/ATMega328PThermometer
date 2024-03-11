@@ -26,6 +26,7 @@ add_compile_options(
     -Wundef
     -Werror
     -Wfatal-errors
+    --param=min-pagesize=0
     -Wl,--relax,--gc-sections
 )
 
