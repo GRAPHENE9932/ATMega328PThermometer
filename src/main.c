@@ -19,7 +19,7 @@ void construct_first_line(ds18b20_temp_t temp) {
 void construct_second_line(uint16_t millis) {
     memcpy(second_line, "Elap:           ", 17);
 
-    unsigned char off = uint16_to_str(millis, second_line + 6, 17 - 6 - 2, true) + 6;
+    unsigned char off = uint16_to_str(millis, second_line + 6, 17 - 6 - 2, 5, true) + 6;
     second_line[off++] = 'm';
     second_line[off] = 's';
 }

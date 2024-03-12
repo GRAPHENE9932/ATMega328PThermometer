@@ -1,4 +1,5 @@
 #include "ds18b20.h"
+#include "utils.h"
 #include <util/delay.h>
 
 // DS18B20 datasheet:
@@ -104,32 +105,6 @@ const uint16_t FRACTIONAL_BINARY_COEFFICIENTS[4] = {
     5000
 };
 
-static unsigned char short_to_string(uint16_t num, char* buffer, unsigned char buffer_size, bool skip_zeroes) {
-    if (buffer_size == 0) {
-        return 0;
-    }
-
-    unsigned char off = 0;
-
-    bool non_zero_encountered = false;
-    uint16_t cur_divisor = 1000; // The maximum possible value is 9999 (4 digits).
-    for (unsigned char i = 0; i < 4; i++) {
-        unsigned char cur_digit = num / cur_divisor % 10;
-        cur_divisor /= 10;
-
-        if (cur_digit == 0 && !non_zero_encountered && skip_zeroes) {
-            continue;
-        }
-
-        if (off >= buffer_size) {
-            return off;
-        }
-        buffer[off++] = '0' + cur_digit;
-    }
-
-    return off;
-}
-
 unsigned char ds18b20_temp_t_to_string(ds18b20_temp_t temp, char* buffer, unsigned char buffer_size) {
     unsigned char off = 0;
     if (temp & 0b1000000000000000) {
@@ -138,7 +113,7 @@ unsigned char ds18b20_temp_t_to_string(ds18b20_temp_t temp, char* buffer, unsign
     }
 
     unsigned char integer_part = temp >> 4;
-    off += short_to_string(integer_part, buffer + off, buffer_size - off, true);
+    off += uint16_to_str(integer_part, buffer + off, buffer_size - off, 5, true);
     
     buffer[off++] = '.';
 
@@ -150,7 +125,7 @@ unsigned char ds18b20_temp_t_to_string(ds18b20_temp_t temp, char* buffer, unsign
         temp >>= 1;
     }
 
-    off += short_to_string(fractional_part, buffer + off, buffer_size - off, false);
+    off += uint16_to_str(fractional_part, buffer + off, buffer_size - off, 4, false);
 
     return off;
 }
