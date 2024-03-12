@@ -4,10 +4,12 @@
 #include <stdbool.h>
 #include <avr/io.h>
 
+#ifndef REDEFINED_DS18B20_PORT
 #define DS18B20_PORT PORTD
 #define DS18B20_PIN PIND
 #define DS18B20_DDR DDRD
 #define DS18B20_PORT_BIT (0b00000001 << 2)
+#endif
 
 typedef uint16_t ds18b20_temp_t;
 
