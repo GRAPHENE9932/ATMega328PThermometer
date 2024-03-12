@@ -30,7 +30,7 @@ add_compile_options(
     -Wl,--relax,--gc-sections
 )
 
-add_executable(atmega328p_thermometer src/main.c src/i2c.c src/hd44780.c src/ds18b20.c)
+add_executable(atmega328p_thermometer src/main.c src/i2c.c src/hd44780.c src/ds18b20.c src/utils.c)
 
 set_target_properties(atmega328p_thermometer PROPERTIES OUTPUT_NAME atmega328p_thermometer.o)
 
