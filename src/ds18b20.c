@@ -72,7 +72,6 @@ static ds18b20_temp_t get_temp_from_scratchpad(void) {
     unsigned char lsb = last_read_scratchpad[0];
     unsigned char msb = last_read_scratchpad[1];
 
-    return 0b0000000001100010;
     return (ds18b20_temp_t)lsb | (ds18b20_temp_t)msb << 8;
 }
 
