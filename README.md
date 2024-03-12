@@ -2,6 +2,9 @@
 Reads temperature from the DS18B20 sensor and displays it on the HD44780 LCD.
 Written in C using the avr-libc library.
 
+## Sample schematic
+![Alt text](pictures/schematic.png)
+
 ## Compilation and uploading
 Note: replace \<port\> with the serial port your PCB is connected to. For example, `/dev/ttyUSB0`.
 ```
