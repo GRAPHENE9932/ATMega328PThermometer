@@ -77,7 +77,7 @@ static void send_address(char address) {
     ack();
 }
 
-void i2c_start_transmission(unsigned char slave_address) {
+void i2c_start_transmission(uint8_t slave_address) {
     SDA_DDR |= SDA_PORT_BIT;
     SCL_DDR |= SCL_PORT_BIT;
     start_condition();

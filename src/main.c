@@ -2,6 +2,7 @@
 #include "ds18b20.h"
 #include "utils.h"
 #include <string.h>
+#include <stdint.h>
 #include <util/delay.h>
 #include <avr/io.h>
 
@@ -11,7 +12,7 @@ char second_line[17] = "Elap:           ";
 void construct_first_line(ds18b20_temp_t temp) {
     memcpy(first_line, "Temp:           ", 17);
 
-    unsigned char off = ds18b20_temp_t_to_string(temp, first_line + 6, 9) + 6;
+    uint8_t off = ds18b20_temp_t_to_string(temp, first_line + 6, 9) + 6;
     first_line[off++] = HD44780_CHAR_DEGREE;
     first_line[off] = 'C';
 }
@@ -19,7 +20,7 @@ void construct_first_line(ds18b20_temp_t temp) {
 void construct_second_line(uint16_t millis) {
     memcpy(second_line, "Elap:           ", 17);
 
-    unsigned char off = uint16_to_str(millis, second_line + 6, 17 - 6 - 2, 5, true) + 6;
+    uint8_t off = uint16_to_str(millis, second_line + 6, 17 - 6 - 2, 5, true) + 6;
     second_line[off++] = 'm';
     second_line[off] = 's';
 }

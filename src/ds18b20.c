@@ -10,7 +10,7 @@ const char CONVERT_T_COMMAND = 0x44;
 const char READ_SCRATCHPAD_COMMAND = 0xBE;
 #define SCRATCHPAD_SIZE 9
 
-unsigned char last_read_scratchpad[SCRATCHPAD_SIZE];
+uint8_t last_read_scratchpad[SCRATCHPAD_SIZE];
 
 static void write_bit(bool bit) {
     DS18B20_DDR |= DS18B20_PORT_BIT;
@@ -53,9 +53,9 @@ static bool read_bit(void) {
     return result;
 }
 
-static unsigned char read_byte(void) {
-    unsigned char result = 0;
-    for (unsigned char i = 0; i < 8; i++) {
+static uint8_t read_byte(void) {
+    uint8_t result = 0;
+    for (uint8_t i = 0; i < 8; i++) {
         result |= read_bit() << i;
     }
     return result;
@@ -70,8 +70,8 @@ static void reset(void) {
 }
 
 static ds18b20_temp_t get_temp_from_scratchpad(void) {
-    unsigned char lsb = last_read_scratchpad[0];
-    unsigned char msb = last_read_scratchpad[1];
+    uint8_t lsb = last_read_scratchpad[0];
+    uint8_t msb = last_read_scratchpad[1];
 
     return (ds18b20_temp_t)lsb | (ds18b20_temp_t)msb << 8;
 }
@@ -91,7 +91,7 @@ ds18b20_temp_t ds18b20_get_temp(void) {
     write_byte(SKIP_ROM_COMMAND);
     write_byte(READ_SCRATCHPAD_COMMAND);
 
-    for (unsigned char i = 0; i < SCRATCHPAD_SIZE; i++) {
+    for (uint8_t i = 0; i < SCRATCHPAD_SIZE; i++) {
         last_read_scratchpad[i] = read_byte();
     }
 
@@ -105,20 +105,20 @@ const uint16_t FRACTIONAL_BINARY_COEFFICIENTS[4] = {
     5000
 };
 
-unsigned char ds18b20_temp_t_to_string(ds18b20_temp_t temp, char* buffer, unsigned char buffer_size) {
-    unsigned char off = 0;
+uint8_t ds18b20_temp_t_to_string(ds18b20_temp_t temp, char* buffer, uint8_t buffer_size) {
+    uint8_t off = 0;
     if (temp & 0b1000000000000000) {
         buffer[off++] = '-';
         temp = ~temp;
     }
 
-    unsigned char integer_part = temp >> 4;
+    uint8_t integer_part = temp >> 4;
     off += uint16_to_str(integer_part, buffer + off, buffer_size - off, 5, true);
     
     buffer[off++] = '.';
 
     uint16_t fractional_part = 0;
-    for (unsigned char i = 0; i < 4; i++) {
+    for (uint8_t i = 0; i < 4; i++) {
         if (temp & 1) {
             fractional_part += FRACTIONAL_BINARY_COEFFICIENTS[i];
         }
