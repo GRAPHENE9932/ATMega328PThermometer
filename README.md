@@ -5,6 +5,9 @@ Written in C using the avr-libc library.
 ## Sample schematic
 ![Schematic](pictures/schematic.png)
 
+## Picture
+![Picture](pictures/real_life_picture.jpg)
+
 ## Compilation and uploading
 Note: replace \<port\> with the serial port your PCB is connected to. For example, `/dev/ttyUSB0`.
 ```
