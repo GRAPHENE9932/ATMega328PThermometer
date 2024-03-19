@@ -1,4 +1,4 @@
-# atmega328p_thermometer
+# ATMega328PThermometer
 Reads temperature from the DS18B20 sensor and displays it on the HD44780 LCD.
 Written in C using the avr-libc library.
 
